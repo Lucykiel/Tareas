@@ -5,17 +5,17 @@ USE ventas;
 
 -- tabla clientes
 CREATE TABLE IF NOT EXISTS clientes(
- pk_cif_nif VARCHAR(9) PRIMARY KEY,
+ pk_cif_nif VARCHAR(9) PRIMARY KEY NOT NULL,
  nombre VARCHAR(100) NOT NULL,
- calle VARCHAR(150),
- numero VARCHAR(10),
- ciudad VARCHAR(100),
- codigo_postal INT(5)
+ calle VARCHAR(150) NOT NULL,
+ numero VARCHAR(10) NOT NULL,
+ ciudad VARCHAR(100) NOT NULL,
+ codigo_postal INT(5) NOT NULL
 );
 
 -- tabla telefonos_clientes
 CREATE TABLE IF NOT EXISTS telefonos_clientes(
- pk_telefono INT AUTO_INCREMENT PRIMARY KEY,
+ pk_telefono INT PRIMARY KEY,
  fk_cif_nif VARCHAR(9),
  FOREIGN KEY (fk_cif_nif) REFERENCES clientes(pk_cif_nif)
 );
@@ -71,9 +71,6 @@ CREATE TABLE IF NOT EXISTS facturas_productos(
  precio_venta DECIMAL (5, 2),
  iva DECIMAL (5, 2)
 );
-
--- foreign keys
-
 
 
 
