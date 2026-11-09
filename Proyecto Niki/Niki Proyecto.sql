@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS catalogo_steam(
  desarrollador VARCHAR(50) NOT NULL,
  fecha_lanzamiento DATE NOT NULL,
  almacenamiento VARCHAR(20) NOT NULL,
- precio_base DECIMAL(5,2) NOT NULL CHECK (precio_base > 0)
+ precio_base DECIMAL(5,2) NOT NULL CHECK (precio_base >= 0)
 );
 
 CREATE TABLE IF NOT EXISTS promociones(
