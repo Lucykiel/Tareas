@@ -3,8 +3,8 @@ USE plataforma_steam;
 
 CREATE TABLE IF NOT EXISTS usuarios(
  pk_usuario INT AUTO_INCREMENT PRIMARY KEY,
- alias VARCHAR(20) NOT NULL,
- contrasena_encriptada VARCHAR(50) NOT NULL,
+ alias VARCHAR(20) UNIQUE NOT NULL,
+ contrasena_encriptada VARCHAR(50) UNIQUE NOT NULL,
  pais VARCHAR(20) NOT NULL
 );
 
