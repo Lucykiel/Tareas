@@ -82,6 +82,18 @@ CREATE TABLE IF NOT EXISTS administrativo_viajes(
 );
 
 
+ALTER TABLE tramos_viaje
+ADD CONSTRAINT fk_tramo_viaje 
+FOREIGN KEY (fk_viaje) REFERENCES viajes(pk_viaje);
+
+ALTER TABLE administrativo_viajes
+ADD CONSTRAINT pk_administrativo_viajes PRIMARY KEY (fk_viaje, fk_dni),
+ADD FOREIGN KEY (fk_viaje) REFERENCES viajes(pk_viaje)
+ON DELETE CASCADE ON UPDATE CASCADE,
+ADD FOREIGN KEY (fk_dni) REFERENCES empleados(pk_dni)
+ON DELETE CASCADE ON UPDATE CASCADE;
+
+
 
 
 
