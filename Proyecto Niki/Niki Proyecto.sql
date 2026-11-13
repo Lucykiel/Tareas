@@ -6,14 +6,14 @@ USE plataforma_steam;
 CREATE TABLE IF NOT EXISTS usuarios(
  pk_usuario INT AUTO_INCREMENT PRIMARY KEY,
  alias VARCHAR(20) UNIQUE NOT NULL,
- contrasena_encriptada VARCHAR(50) UNIQUE NOT NULL,
+ contrasena_encriptada VARCHAR(10) UNIQUE NOT NULL,
  pais VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS catalogo_steam(
  pk_videojuego INT AUTO_INCREMENT PRIMARY KEY,
- titulo VARCHAR(100) UNIQUE NOT NULL,
- desarrollador VARCHAR(50) NOT NULL,
+ titulo VARCHAR(150) UNIQUE NOT NULL,
+ desarrollador VARCHAR(100) NOT NULL,
  fecha_lanzamiento DATE NOT NULL,
  almacenamiento VARCHAR(20) NOT NULL,
  precio_base DECIMAL(5,2) NOT NULL CHECK (precio_base >= 0)
@@ -56,6 +56,7 @@ CREATE TABLE IF NOT EXISTS catalogo_usuarios(
  ultima_sesion DATE
 );
 
+
 ALTER TABLE promociones
 ADD FOREIGN KEY (fk_videojuego) REFERENCES catalogo_steam(pk_videojuego)
 ON UPDATE CASCADE ON DELETE CASCADE,
@@ -83,6 +84,19 @@ ADD FOREIGN KEY (fk_videojuego) REFERENCES catalogo_steam(pk_videojuego)
 ON UPDATE CASCADE ON DELETE CASCADE,
 ADD FOREIGN KEY (fk_estado) REFERENCES estado_videojuego_usuarios(pk_estado)
 ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+DELIMITER //
+CREATE TRIGGER generar_contrasena_azar
+BEFORE INSERT ON usuarios
+FOR EACH ROW
+ BEGIN
+  IF NEW.contrasena_encriptada IS NULL OR NEW.contrasena_encriptada = '' THEN
+   SET NEW.contrasena_encriptada = SUBSTRING(MD5(RAND()), 1, 10);
+  END IF;
+END //
+
+DELIMITER ;
 
 
 
