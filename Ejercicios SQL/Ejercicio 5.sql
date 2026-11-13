@@ -49,9 +49,37 @@ CREATE TABLE IF NOT EXISTS vehiculos(
  anyo INT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS camiones(
+ fk_matricula VARCHAR(20) PRIMARY KEY,
+ tonelaje_maximo DECIMAL(10, 2) NOT NULL
+);
 
+CREATE TABLE IF NOT EXISTS furgonetas(
+ fk_matricula VARCHAR(20) PRIMARY KEY,
+ capacidad_maxima_m3 DECIMAL(10, 2) NOT NULL
+);
 
+CREATE TABLE IF NOT EXISTS viajes(
+ pk_viaje INT AUTO_INCREMENT PRIMARY KEY,
+ origen VARCHAR(100) NOT NULL,
+ destino VARCHAR(100) NOT NULL,
+ fk_conductor VARCHAR(20),
+ fk_vehiculo VARCHAR(20)
+);
 
+CREATE TABLE IF NOT EXISTS tramos_viaje(
+ fk_viaje INT,
+ numero_tramo INT,
+ distancia_km DECIMAL(10, 2) NOT NULL,
+ fecha_inicio DATETIME,
+ fecha_fin DATETIME,
+ PRIMARY KEY (fk_viaje, numero_tramo)
+);
+
+CREATE TABLE IF NOT EXISTS administrativo_viajes(
+ fk_viaje INT,
+ fk_dni VARCHAR(20)
+);
 
 
 
