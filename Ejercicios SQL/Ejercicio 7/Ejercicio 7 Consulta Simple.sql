@@ -130,6 +130,39 @@ ORDER BY sueldo DESC;
 
 -- 24.Lista todos los empleados que tengan un sueldo entre 18.000€ y 25.000€.
 -- Sin utilizar el operador BETWEEN.
+SELECT CONCAT(nombre, ' ', apellido) AS nombre_apellido, sueldo
+FROM empleado
+WHERE sueldo >= 18000 AND sueldo <= 25000
+ORDER BY sueldo DESC;
+
+-- 25.Lista todos los empleados que tengan un sueldo entre 16.000€ y 20.000€.
+-- Utilizando el operador BETWEEN.
+SELECT CONCAT(nombre, ' ', apellido) AS nombre_apellido, sueldo
+FROM empleado
+WHERE sueldo BETWEEN 16000 AND 20000
+ORDER BY sueldo DESC;
+
+-- 26.Lista los empleados que tengan un sueldo mayor que 15.000€ y que el fk_departamento sea igual a 6.
+SELECT CONCAT(nombre, ' ', apellido) AS nombre_apellido, fk_departamento, sueldo
+FROM empleado
+WHERE fk_departamento = 6 AND sueldo > 15000
+ORDER BY sueldo ASC;
+
+-- 27. Lista los empleados donde el fk_cargo sea 1,3 o 5.
+-- Sin utilizar el operador IN.
+SELECT CONCAT(nombre, ' ', apellido) AS nombre_apellido, fk_cargo
+FROM empleado
+WHERE fk_cargo = 1 
+OR fk_cargo = 3 
+OR fk_cargo = 5;
+
+-- 28.Lista todos los empleados donde el fk_cargo sea 1, 3 o 5.
+-- Utilizando el operador IN.
+SELECT CONCAT(nombre, ' ', apellido) AS nombre_apellido, fk_cargo
+FROM empleado
+WHERE fk_cargo IN (1, 3, 5);
+
+
 
 
 
