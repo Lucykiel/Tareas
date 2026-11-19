@@ -162,6 +162,51 @@ SELECT CONCAT(nombre, ' ', apellido) AS nombre_apellido, fk_cargo
 FROM empleado
 WHERE fk_cargo IN (1, 3, 5);
 
+-- 29.Lista el nombre + apellido de los empleados y su mes de nacimiento.
+SELECT CONCAT(nombre, ' ', apellido) AS nombre_apellido,
+MONTH(fecha_nacimiento) AS mes_nacimiento
+FROM empleado
+ORDER BY nombre_apellido ASC;
+
+-- 30.Lista los empleados cuyo nombre empiece por la letra S.
+SELECT nombre
+FROM empleado
+WHERE nombre LIKE 'S%';
+
+-- 31. Lista los empleados cuyo nombre termine por la vocal e.
+SELECT nombre
+FROM empleado
+WHERE nombre LIKE '%e';
+
+-- 32.Lista los cargos que contengan el carácter r.
+SELECT cargo
+FROM cargo
+WHERE cargo LIKE '%r%';
+
+-- 33.Devuelve una lista de todos los empleados que contienen la cadena ana en el nombre.
+SELECT nombre
+FROM empleado
+WHERE nombre LIKE '%ana%';
+
+-- 34.Haz una lista de todos los empleados que contienen la cadena ez en el apellido y tienen un sueldo inferior a 21.500€.
+SELECT apellido, sueldo
+FROM empleado
+WHERE apellido LIKE '%ez%' AND sueldo < 21500
+ORDER BY sueldo DESC;
+
+-- 35.Lista los apellidos cuya longitud sea igual a 4 caracteres.
+SELECT apellido
+FROM empleado
+WHERE LENGTH(apellido) = 4;
+
+-- 36.Lista el nombre y el sueldo de todos los empleados que tengan un sueldo mayor
+-- o igual a 18.000€. Ordena el resultado en primer lugar por el sueldo (en orden
+-- descendente) y en segundo lugar por el apellido (en orden ascendente).
+SELECT nombre, apellido, sueldo
+FROM empleado
+WHERE sueldo >= 18000
+ORDER BY sueldo DESC, apellido ASC;
+
 
 
 
