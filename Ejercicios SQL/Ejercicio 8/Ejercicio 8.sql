@@ -77,5 +77,42 @@ fecha_esperada - fecha_entrega AS resultado
 FROM pedido
 WHERE (fecha_esperada - fecha_entrega) >= 2;
 
+-- 11. Devuelve un listado de todos los pedidos que fueron rechazados en 2009.
+SELECT pk_pedido, fecha_pedido, estado
+FROM pedido
+WHERE YEAR(fecha_pedido) = 2009 AND estado = 'Rechazado';
+
+-- 12. Devuelve un listado de todos los pedidos que han sido entregados en el mes de enero de cualquier año.
+SELECT pk_pedido, fecha_entrega
+FROM pedido
+WHERE MONTH(fecha_entrega) = 1
+ORDER BY pk_pedido ASC; 
+
+-- 13. Devuelve un listado con todos los pagos que se realizaron en el año 2008 mediante Paypal. Ordena el resultado de mayor a menor.
+SELECT fk_cliente, forma_pago, fecha_pago, total
+FROM pago
+WHERE YEAR(fecha_pago) = 2008 AND forma_pago = 'Paypal'
+ORDER BY fecha_pago ASC;
+
+-- 14. Devuelve un listado con todas las formas de pago que aparecen en la tabla pago. Tenga en cuenta que no deben aparecer formas de pago repetidas.
+SELECT DISTINCT forma_pago
+FROM pago;
+
+-- 15. Devuelve un listado con todos los productos que pertenecen a la gama
+-- Ornamentales y que tienen más de 100 unidades en stock. El listado deberá estar
+-- ordenado por su precio de venta, mostrando en primer lugar los de mayor precio.
+SELECT pk_producto, fk_gama, cantidad_en_stock, precio_venta
+FROM producto
+WHERE fk_gama = 5 AND cantidad_en_stock >= 100
+ORDER BY precio_venta DESC;
+
+-- 16. Devuelve un listado con todos los clientes que sean de la ciudad de Madrid y cuyo representante de ventas tenga el código de empleado 11 o 30.
+SELECT pk_cliente, nombre_cliente, ciudad, fk_representante_ventas
+FROM cliente
+WHERE fk_representante_ventas = 11 OR fk_representante_ventas = 30 AND ciudad = 'Madrid';
+
+
+
+
 
 
