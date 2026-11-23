@@ -133,11 +133,17 @@ WHERE e.puesto = 'Representante Ventas';
 
 -- 5. Devuelve el nombre de los clientes que no hayan hecho pagos y el nombre de sus
 -- representantes junto con la ciudad de la oficina a la que pertenece el representante.
-
-
-
+SELECT DISTINCT c.nombre_cliente, e.nombre, e.puesto, o.ciudad FROM cliente AS c
+JOIN empleado AS e ON c.fk_representante_ventas = e.pk_empleado
+LEFT JOIN pago AS p ON c.pk_cliente = p.fk_cliente
+JOIN oficina AS o ON o.pk_oficina = e.fk_oficina
+WHERE e.puesto = 'Representante Ventas' AND p.fk_cliente IS NULL;
 
 -- 6. Lista la dirección de las oficinas que tengan clientes en Fuenlabrada.
+SELECT DISTINCT o.pk_oficina, o.linea_direccion1, o.linea_direccion2 FROM cliente AS c
+JOIN empleado AS e ON c.fk_representante_ventas = e.pk_empleado
+JOIN oficina AS o ON o.pk_oficina = e.fk_oficina
+WHERE c.ciudad = 'Fuenlabrada';
 
 -- 7. Devuelve el nombre de los clientes y el nombre de sus representantes junto con la ciudad de la oficina a la que pertenece el representante.
 
