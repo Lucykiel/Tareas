@@ -60,15 +60,40 @@ WHERE c.cargo = 'Asistente'
 GROUP BY c.pk_cargo, c.cargo;
 
 -- 12. Calcula la media de hijos de los empleados por sexo y estado civil
+SELECT sexo, estado_civil, ROUND(AVG(hijos), 2) AS hijos
+FROM empleado
+GROUP BY sexo, estado_civil;
 
+-- 13.Calcula el sueldo más bajo de los Analistas.
+SELECT c.cargo, COUNT(pk_empleado) AS total_empleados, MIN(sueldo)
+FROM empleado AS e
+JOIN cargo AS c ON e.fk_cargo = c.pk_cargo
+WHERE c.cargo = 'Analista'
+GROUP BY c.pk_cargo, c.cargo;
 
+-- 14.Calcula el sueldo más alto de los Analistas.
+SELECT c.cargo, COUNT(pk_empleado) AS total_empleados, MAX(sueldo)
+FROM empleado AS e
+JOIN cargo AS c ON e.fk_cargo = c.pk_cargo
+WHERE c.cargo = 'Analista'
+GROUP BY c.pk_cargo, c.cargo;
 
+-- 15. Muestra el sueldo máximo, sueldo mínimo, sueldo promedio y el número total de empleados por cargo.
+SELECT c.cargo, COUNT(*) AS total_empleados,
+MAX(sueldo) AS sueldo_maximo, MIN(sueldo) AS sueldo_minimo, AVG(sueldo) AS sueldo_medio
+FROM empleado AS e
+JOIN cargo AS c ON e.fk_cargo = c.pk_cargo
+GROUP BY c.cargo;
 
+-- 16. Muestra el sueldo máximo, sueldo mínimo, sueldo promedio y el número total
+SELECT MAX(sueldo) AS sueldo_maximo, MIN(sueldo) AS sueldo_minimo, ROUND(AVG(sueldo), 2) AS sueldo_medio, SUM(sueldo) AS sueldo_total
+FROM empleado;
 
-13.Calcula el sueldo más bajo de los Analistas.
-14.Calcula el sueldo más alto de los Analistas.
-15. Muestra el sueldo máximo, sueldo mínimo, sueldo promedio y el número total
-de empleados por cargo.
+SELECT MAX(sueldo) AS sueldo_maximo, 
+       MIN(sueldo) AS sueldo_minimo, 
+       ROUND(AVG(sueldo), 2) AS sueldo_medio, 
+       COUNT(*) AS total_empleados
+FROM empleado;
 
-
+-- de empleados por departamento, ordenando de forma descendente por el sueldo promedio.
 
