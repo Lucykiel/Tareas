@@ -58,6 +58,8 @@ CREATE TABLE IF NOT EXISTS catalogo_usuarios(
 
 
 ALTER TABLE catalogo_steam AUTO_INCREMENT = 1;
+ALTER TABLE promociones AUTO_INCREMENT = 1;
+ALTER TABLE logros AUTO_INCREMENT = 1;
 
 ALTER TABLE promociones
 ADD FOREIGN KEY (fk_videojuego) REFERENCES catalogo_steam(pk_videojuego)
