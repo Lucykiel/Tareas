@@ -86,14 +86,69 @@ JOIN cargo AS c ON e.fk_cargo = c.pk_cargo
 GROUP BY c.cargo;
 
 -- 16. Muestra el sueldo máximo, sueldo mínimo, sueldo promedio y el número total
-SELECT MAX(sueldo) AS sueldo_maximo, MIN(sueldo) AS sueldo_minimo, ROUND(AVG(sueldo), 2) AS sueldo_medio, SUM(sueldo) AS sueldo_total
-FROM empleado;
-
-SELECT MAX(sueldo) AS sueldo_maximo, 
-       MIN(sueldo) AS sueldo_minimo, 
-       ROUND(AVG(sueldo), 2) AS sueldo_medio, 
-       COUNT(*) AS total_empleados
-FROM empleado;
-
 -- de empleados por departamento, ordenando de forma descendente por el sueldo promedio.
+SELECT d.departamento, COUNT(*) AS total_empleados,
+MAX(sueldo) AS sueldo_maximo, MIN(sueldo) AS sueldo_minimo, ROUND(AVG(sueldo), 2) AS sueldo_medio
+FROM empleado AS e
+JOIN departamento AS d ON d.pk_departamento = e.fk_departamento
+GROUP BY d.departamento
+ORDER BY AVG(sueldo) DESC;
+
+-- 17. Muestra la edad máxima, edad mínima, edad promedio y el número total de
+-- empleados de los departamentos que tienen una edad promedio superior a los 45 años.
+SELECT d.departamento, COUNT(*) AS total_empleados,
+MAX(TIMESTAMPDIFF(YEAR, e.fecha_nacimiento, CURDATE())) AS edad_maxima, MIN(TIMESTAMPDIFF(YEAR, e.fecha_nacimiento, CURDATE())) AS edad_minima,
+ROUND(AVG(TIMESTAMPDIFF(YEAR, e.fecha_nacimiento, CURDATE())), 2) AS edad_promedio
+FROM empleado AS e
+JOIN departamento AS d ON d.pk_departamento = e.fk_departamento
+GROUP BY d.departamento
+HAVING AVG(TIMESTAMPDIFF(YEAR, e.fecha_nacimiento, CURDATE())) > 45;
+
+-- 18.Calcula el número de empleados que tienen un sueldo mayor o igual a 1800€.
+SELECT COUNT(pk_empleado) AS total_empleados
+FROM empleado
+WHERE sueldo >= 1800;
+
+-- 19. Calcula el número de empleados que tienen una edad menor o igual a 28 años.
+SELECT COUNT(pk_empleado) AS total_empleados
+FROM empleado
+WHERE TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURDATE()) <= 28;
+
+-- 20.Lista los nombres de los departamentos cuyos empleados tienen una edad promedio mayor o igual a 35 años.
+SELECT d.departamento, COUNT(*) AS total_empleados,
+ROUND(AVG(TIMESTAMPDIFF(YEAR, e.fecha_nacimiento, CURDATE())), 2) AS edad_promedio
+FROM empleado AS e
+JOIN departamento AS d ON d.pk_departamento = e.fk_departamento
+GROUP BY d.departamento
+HAVING edad_promedio >= 35;
+
+-- 21. Devuelve un listado con los nombres de los cargos que tienen 5 o más empleados.
+SELECT c.cargo, COUNT(*) AS total_empleados
+FROM empleado AS e
+JOIN cargo AS c ON c.pk_cargo = e.fk_cargo
+GROUP BY c.cargo
+HAVING total_empleados >= 5;
+
+-- 22.Devuelve un listado con los nombres de los departamentos donde el promedio de edad sea superior 40 años.
+SELECT d.departamento, ROUND(AVG(TIMESTAMPDIFF(YEAR, e.fecha_nacimiento, CURDATE())), 2) AS edad_promedio
+FROM empleado AS e
+JOIN departamento AS d ON d.pk_departamento = e.fk_departamento
+GROUP BY d.departamento
+HAVING edad_promedio > 40;
+
+-- 23.Muestra el número total de empleados que tiene cada departamento. El listado también debe incluir los departamentos que no tienen ningún
+-- empleado. El resultado mostrará dos columnas, una con el nombre del departamento y otra con el número de empleados que tiene. Ordena el
+-- resultado descendentemente por el número de empleados.
+SELECT d.departamento, COUNT(pk_empleado) AS total_empleados
+FROM empleado AS e
+RIGHT JOIN departamento AS d ON d.pk_departamento = e.fk_departamento
+GROUP BY d.departamento
+ORDER BY total_empleados DESC;
+
+-- 24.Explica las diferencias entre las cláusulas WHERE y HAVING, y cuándo utilizar cada una de ellas.
+
+-- Where solo aplica a una columna de todo una tabla y establece una regla, Having la establece en un conjunto.
+
+
+
 
