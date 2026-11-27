@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS logros(
  pk_logro INT AUTO_INCREMENT PRIMARY KEY,
  fk_videojuego INTEGER NOT NULL,
  nombre_logro VARCHAR(50) NOT NULL,
- descripción VARCHAR(100) NOT NULL,
+ descripción VARCHAR(200) NOT NULL,
  rareza_global DECIMAL(4,2) NOT NULL
 );
 
